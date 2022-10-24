@@ -15,41 +15,46 @@ class TextForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: hintText,
-        labelText: labelText,
-        hintStyle: const TextStyle(
-          color: Colors.purpleAccent,
-        ),
-        labelStyle: const TextStyle(
-          color: Colors.purpleAccent,
-          fontWeight: FontWeight.bold,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            25.0,
-          ),
-          borderSide: const BorderSide(
+    return PhysicalModel(
+      shadowColor: Colors.purple.shade100,
+      color: Colors.transparent,
+      elevation: 25,
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: hintText,
+          labelText: labelText,
+          hintStyle: const TextStyle(
             color: Colors.purpleAccent,
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            25.0,
-          ),
-          borderSide: const BorderSide(
+          labelStyle: const TextStyle(
             color: Colors.purpleAccent,
+            fontWeight: FontWeight.bold,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              25.0,
+            ),
+            borderSide: const BorderSide(
+              color: Colors.purpleAccent,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              25.0,
+            ),
+            borderSide: const BorderSide(
+              color: Colors.purpleAccent,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+              25.0,
+            ),
           ),
         ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            25.0,
-          ),
-        ),
+        keyboardType: textInputType,
+        obscureText: obscure,
       ),
-      keyboardType: textInputType,
-      obscureText: obscure,
     );
   }
 }

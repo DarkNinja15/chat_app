@@ -9,6 +9,7 @@ class LoginPage extends StatelessWidget {
     final formKey = GlobalKey();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           title: const Text('Login'),
