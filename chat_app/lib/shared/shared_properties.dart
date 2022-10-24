@@ -54,6 +54,24 @@ class TextForm extends StatelessWidget {
         ),
         keyboardType: textInputType,
         obscureText: obscure,
+        validator: (value) {
+          if (textInputType == TextInputType.emailAddress) {
+            if (value!.isEmpty) {
+              return 'Enter email';
+            }
+            if (!value.endsWith('.com')) {
+              return 'Invalid email';
+            }
+          } else if (textInputType == TextInputType.text) {
+            if (value!.isEmpty) {
+              return 'Enter password';
+            }
+            if (value.length < 6) {
+              return 'Password too short';
+            }
+          }
+        },
+        onSaved: (value) {},
       ),
     );
   }

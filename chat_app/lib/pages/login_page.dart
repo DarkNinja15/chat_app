@@ -1,5 +1,6 @@
 import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -26,8 +27,8 @@ class LoginPage extends StatelessWidget {
               Form(
                 key: formKey,
                 child: Column(
-                  children: const [
-                    Padding(
+                  children: [
+                    const Padding(
                       padding: EdgeInsets.all(18.0),
                       child: TextForm(
                         hintText: 'Enter Your username',
@@ -35,7 +36,7 @@ class LoginPage extends StatelessWidget {
                         textInputType: TextInputType.emailAddress,
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.all(18.0),
                       child: TextForm(
                         hintText: 'Enter Your Password',
@@ -44,7 +45,58 @@ class LoginPage extends StatelessWidget {
                         obscure: true,
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: InkWell(
+                        onTap: () {},
+                        child: PhysicalModel(
+                          color: Colors.transparent,
+                          shadowColor: Colors.purple.shade200,
+                          elevation: 30,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(
+                              25.0,
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 50,
+                              width: double.infinity,
+                              color: Colors.purple,
+                              child: Text(
+                                'LogIn',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: GoogleFonts.roboto().fontFamily,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {},
+                child: RichText(
+                  text: const TextSpan(
+                    text: "Don't Have an Account? ",
+                    style: TextStyle(
+                      color: Colors.purple,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'SignUp Here',
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
