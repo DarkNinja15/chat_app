@@ -1,5 +1,4 @@
-import 'package:chat_app/shared/loading1.dart';
-import 'package:chat_app/shared/loading2.dart';
+import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -20,18 +19,28 @@ class LoginPage extends StatelessWidget {
           child: Column(
             children: [
               Image.asset('assets/login.png'),
-              const Loading2(),
+              const SizedBox(
+                height: 40,
+              ),
               Form(
                 key: formKey,
                 child: Column(
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          hintText: 'Enter your Username',
-                          labelText: 'Username',
-                        ),
+                      padding: EdgeInsets.all(18.0),
+                      child: TextForm(
+                        hintText: 'Enter Your username',
+                        labelText: 'Username',
+                        textInputType: TextInputType.emailAddress,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(18.0),
+                      child: TextForm(
+                        hintText: 'Enter Your Password',
+                        labelText: 'Password',
+                        textInputType: TextInputType.text,
+                        obscure: true,
                       ),
                     ),
                   ],
