@@ -8,7 +8,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
+    final formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -49,7 +49,12 @@ class LoginPage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Processing')));
+                          }
+                        },
                         child: PhysicalModel(
                           color: Colors.transparent,
                           shadowColor: Colors.purple.shade200,

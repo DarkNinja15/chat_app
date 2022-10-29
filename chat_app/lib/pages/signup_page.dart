@@ -8,7 +8,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey();
+    final formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
