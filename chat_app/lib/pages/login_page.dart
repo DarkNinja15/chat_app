@@ -1,3 +1,4 @@
+import 'package:chat_app/pages/signup_page.dart';
 import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,7 +14,7 @@ class LoginPage extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
-          title: const Text('Login'),
+          title: const Text('LogIn'),
           centerTitle: true,
           backgroundColor: Theme.of(context).primaryColor,
         ),
@@ -83,7 +84,12 @@ class LoginPage extends StatelessWidget {
                 height: 10,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Shared().navigate(
+                    context,
+                    () => const SignUpPage(),
+                  );
+                },
                 child: RichText(
                   text: const TextSpan(
                     text: "Don't Have an Account? ",

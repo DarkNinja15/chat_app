@@ -76,3 +76,13 @@ class TextForm extends StatelessWidget {
     );
   }
 }
+
+class Shared {
+  navigate(BuildContext context, Widget Function() widget) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: ((context) => widget()),
+      ),
+    );
+  }
+}
