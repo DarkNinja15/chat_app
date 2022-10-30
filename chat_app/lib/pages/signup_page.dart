@@ -13,12 +13,14 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
+  TextEditingController _namecontroller = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
     _emailcontroller.dispose();
     _passwordcontroller.dispose();
+    _namecontroller.dispose();
   }
 
   @override
@@ -47,9 +49,22 @@ class _SignUpPageState extends State<SignUpPage> {
                     Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: TextForm(
+                        textEditingController: _namecontroller,
+                        hintText: 'Enter Your name',
+                        labelText: 'Name',
+                        textInputType: TextInputType.text,
+                        icon: const Icon(
+                          Icons.abc_sharp,
+                          color: Colors.purple,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
+                      child: TextForm(
                         textEditingController: _emailcontroller,
                         hintText: 'Enter Your email',
-                        labelText: 'Username',
+                        labelText: 'email',
                         textInputType: TextInputType.emailAddress,
                         icon: const Icon(
                           Icons.mail,

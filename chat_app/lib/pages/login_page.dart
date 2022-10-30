@@ -48,8 +48,8 @@ class _LoginPageState extends State<LoginPage> {
                       padding: const EdgeInsets.all(18.0),
                       child: TextForm(
                         textEditingController: _passwordcontroller,
-                        hintText: 'Enter Your username',
-                        labelText: 'Username',
+                        hintText: 'Enter Your email',
+                        labelText: 'email',
                         textInputType: TextInputType.emailAddress,
                         icon: const Icon(
                           Icons.mail,
