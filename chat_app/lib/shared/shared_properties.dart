@@ -5,11 +5,15 @@ class TextForm extends StatelessWidget {
   final String hintText;
   final String labelText;
   final bool obscure;
+  final Icon icon;
+  final TextEditingController textEditingController;
   const TextForm({
     Key? key,
     required this.textInputType,
     required this.hintText,
     required this.labelText,
+    required this.icon,
+    required this.textEditingController,
     this.obscure = false,
   }) : super(key: key);
 
@@ -20,7 +24,9 @@ class TextForm extends StatelessWidget {
       color: Colors.transparent,
       elevation: 25,
       child: TextFormField(
+        controller: textEditingController,
         decoration: InputDecoration(
+          prefixIcon: icon,
           hintText: hintText,
           labelText: labelText,
           hintStyle: const TextStyle(

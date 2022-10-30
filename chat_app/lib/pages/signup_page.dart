@@ -3,8 +3,23 @@ import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController _emailcontroller = TextEditingController();
+  TextEditingController _passwordcontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailcontroller.dispose();
+    _passwordcontroller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,27 +44,40 @@ class SignUpPage extends StatelessWidget {
                 key: formKey,
                 child: Column(
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(18.0),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
                       child: TextForm(
+                        textEditingController: _emailcontroller,
                         hintText: 'Enter Your email',
                         labelText: 'Username',
                         textInputType: TextInputType.emailAddress,
+                        icon: const Icon(
+                          Icons.mail,
+                          color: Colors.purple,
+                        ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(18.0),
+                    Padding(
+                      padding: const EdgeInsets.all(18.0),
                       child: TextForm(
+                        textEditingController: _passwordcontroller,
                         hintText: 'Create a Password',
                         labelText: 'Password',
                         textInputType: TextInputType.text,
                         obscure: true,
+                        icon: const Icon(
+                          Icons.lock,
+                          color: Colors.purple,
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          print('text = ${_emailcontroller.text}');
+                          print('pass = ${_passwordcontroller.text}');
+                        },
                         child: PhysicalModel(
                           color: Colors.transparent,
                           shadowColor: Colors.purple.shade200,
