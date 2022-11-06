@@ -97,12 +97,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           print('name = ${_namecontroller.text}');
                           print('text = ${_emailcontroller.text}');
                           print('pass = ${_passwordcontroller.text}');
-                          // bool f = await AuthMethods().signUp(
-                          //   _emailcontroller.text,
-                          //   _passwordcontroller.text,
-                          //   _namecontroller.text,
-                          // );
-                          bool f = true;
+                          bool f = await AuthMethods().signUp(
+                            _emailcontroller.text,
+                            _passwordcontroller.text,
+                            _namecontroller.text,
+                          );
                           if (f) {
                             showDialog(
                               context: context,
@@ -110,10 +109,28 @@ class _SignUpPageState extends State<SignUpPage> {
                                 _timer = Timer(const Duration(seconds: 5), () {
                                   Navigator.of(context).pop();
                                 });
-                                return const AlertDialog(
-                                  title: Text(
-                                      'Your Account was successfully created'),
-                                  content: Text('Preparing the Dashboard.'),
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: AlertDialog(
+                                    backgroundColor: Colors.grey,
+                                    title: Text(
+                                      'Your Account was successfully created',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily:
+                                            GoogleFonts.lobster().fontFamily,
+                                      ),
+                                    ),
+                                    content: Text(
+                                      'Preparing your Dashboard\n\nPlease Wait',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily:
+                                            GoogleFonts.lobster().fontFamily,
+                                      ),
+                                    ),
+                                  ),
                                 );
                               },
                             ).then((value) => print('ho gya bhai!!'));
