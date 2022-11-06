@@ -5,7 +5,7 @@ class AuthMethods {
   final auth = FirebaseAuth.instance;
 
   // sign up user
-  signUp(String email, String password, String name) async {
+  Future<bool> signUp(String email, String password, String name) async {
     try {
       final UserCredential credential =
           await auth.createUserWithEmailAndPassword(
@@ -13,15 +13,21 @@ class AuthMethods {
         password: password,
       );
 
+      // adding user to firestore...
       await FirebaseFirestore.instance
           .collection('users')
           .doc(credential.user!.uid)
           .set({
-        'email': email,
+        'uid': auth.currentUser!.uid,
         'name': name,
+        'email': email,
+        'groups': [],
+        'profilePic': '',
       });
+      return true;
     } catch (e) {
       print(e.toString());
+      return false;
     }
   }
 }

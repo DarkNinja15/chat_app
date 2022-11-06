@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:chat_app/auth&database/authmethods.dart';
 import 'package:chat_app/pages/login_page.dart';
 import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
   TextEditingController _namecontroller = TextEditingController();
+  Timer? _timer;
 
   @override
   void dispose() {
@@ -89,9 +93,37 @@ class _SignUpPageState extends State<SignUpPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
+                          print('name = ${_namecontroller.text}');
                           print('text = ${_emailcontroller.text}');
                           print('pass = ${_passwordcontroller.text}');
+                          // bool f = await AuthMethods().signUp(
+                          //   _emailcontroller.text,
+                          //   _passwordcontroller.text,
+                          //   _namecontroller.text,
+                          // );
+                          bool f = true;
+                          if (f) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext buildcontext) {
+                                _timer = Timer(const Duration(seconds: 5), () {
+                                  Navigator.of(context).pop();
+                                });
+                                return const AlertDialog(
+                                  title: Text(
+                                      'Your Account was successfully created'),
+                                  content: Text('Preparing the Dashboard.'),
+                                );
+                              },
+                            ).then((value) => print('ho gya bhai!!'));
+                          } else {
+                            const AlertDialog(
+                              title: Text('Failed'),
+                              content:
+                                  Text('Some Error Occured. Try Again Later.'),
+                            );
+                          }
                         },
                         child: PhysicalModel(
                           color: Colors.transparent,
