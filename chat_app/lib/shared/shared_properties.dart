@@ -68,7 +68,7 @@ class TextForm extends StatelessWidget {
             if (!value.endsWith('.com')) {
               return 'Invalid email';
             }
-          } else if (textInputType == TextInputType.text) {
+          } else if (textInputType == TextInputType.text && obscure) {
             if (value!.isEmpty) {
               return 'Enter password';
             }

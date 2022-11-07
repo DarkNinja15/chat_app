@@ -30,4 +30,22 @@ class AuthMethods {
       return false;
     }
   }
+
+  // log in user
+  Future<bool> login(String email, String password) async {
+    try {
+      final UserCredential userCredential =
+          await auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (userCredential != null) {
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

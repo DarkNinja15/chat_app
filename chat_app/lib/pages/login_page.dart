@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:chat_app/pages/signup_page.dart';
 import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../auth&database/authmethods.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,6 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
+  Timer? _timer;
 
   @override
   void dispose() {
@@ -47,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: TextForm(
-                        textEditingController: _passwordcontroller,
+                        textEditingController: _emailcontroller,
                         hintText: 'Enter Your email',
                         labelText: 'email',
                         textInputType: TextInputType.emailAddress,
@@ -60,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(18.0),
                       child: TextForm(
-                        textEditingController: _emailcontroller,
+                        textEditingController: _passwordcontroller,
                         hintText: 'Enter Your Password',
                         labelText: 'Password',
                         textInputType: TextInputType.text,
@@ -74,10 +79,54 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.all(20.0),
                       child: InkWell(
-                        onTap: () {
+                        onTap: () async {
                           if (formKey.currentState!.validate()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text('Processing')));
+                            bool f = await AuthMethods().login(
+                              _emailcontroller.text,
+                              _passwordcontroller.text,
+                            );
+                            print("hello");
+                            print(f);
+                            if (f) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext buildcontext) {
+                                  _timer =
+                                      Timer(const Duration(seconds: 5), () {
+                                    Navigator.of(context).pop();
+                                  });
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: AlertDialog(
+                                      backgroundColor: Colors.white,
+                                      title: Text(
+                                        'Welcome Back',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily:
+                                              GoogleFonts.lobster().fontFamily,
+                                        ),
+                                      ),
+                                      content: Text(
+                                        'Preparing your Dashboard\n\nPlease Wait',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily:
+                                              GoogleFonts.lobster().fontFamily,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => print('ho gya bhai!!'));
+                            } else {
+                              const AlertDialog(
+                                title: Text('Failed'),
+                                content: Text(
+                                    'Some Error Occured. Try Again Later.'),
+                              );
+                            }
                           }
                         },
                         child: PhysicalModel(
