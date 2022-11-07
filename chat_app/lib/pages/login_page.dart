@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:chat_app/pages/signup_page.dart';
+import 'package:chat_app/shared/loading1.dart';
+import 'package:chat_app/shared/loading2.dart';
 import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
   Timer? _timer;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -81,12 +84,18 @@ class _LoginPageState extends State<LoginPage> {
                       child: InkWell(
                         onTap: () async {
                           if (formKey.currentState!.validate()) {
+                            setState(() {
+                              _isLoading = true;
+                            });
                             bool f = await AuthMethods().login(
                               _emailcontroller.text,
                               _passwordcontroller.text,
                             );
                             print("hello");
                             print(f);
+                            setState(() {
+                              _isLoading = false;
+                            });
                             if (f) {
                               showDialog(
                                 context: context,
@@ -129,31 +138,36 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }
                         },
-                        child: PhysicalModel(
-                          color: Colors.transparent,
-                          shadowColor: Colors.purple.shade200,
-                          elevation: 30,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                              25.0,
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              width: double.infinity,
-                              color: Colors.purple,
-                              child: Text(
-                                'LogIn',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: GoogleFonts.roboto().fontFamily,
-                                  fontSize: 20,
+                        child: _isLoading
+                            ? Loading1(
+                                color: Colors.purpleAccent,
+                              )
+                            : PhysicalModel(
+                                color: Colors.transparent,
+                                shadowColor: Colors.purple.shade200,
+                                elevation: 30,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    25.0,
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 50,
+                                    width: double.infinity,
+                                    color: Colors.purple,
+                                    child: Text(
+                                      'LogIn',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily:
+                                            GoogleFonts.roboto().fontFamily,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
                       ),
                     )
                   ],

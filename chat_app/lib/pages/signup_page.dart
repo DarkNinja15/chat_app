@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:chat_app/auth&database/authmethods.dart';
 import 'package:chat_app/pages/login_page.dart';
+import 'package:chat_app/shared/loading1.dart';
 import 'package:chat_app/shared/shared_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +19,7 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordcontroller = TextEditingController();
   TextEditingController _namecontroller = TextEditingController();
   Timer? _timer;
+  bool _isloading = false;
 
   @override
   void dispose() {
@@ -98,6 +100,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           print('text = ${_emailcontroller.text}');
                           print('pass = ${_passwordcontroller.text}');
                           if (formKey.currentState!.validate()) {
+                            setState(() {
+                              _isloading = true;
+                            });
                             bool f = await AuthMethods().signUp(
                               _emailcontroller.text,
                               _passwordcontroller.text,
@@ -105,6 +110,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             );
                             print("hello");
                             print(f);
+                            setState(() {
+                              _isloading = false;
+                            });
                             if (f) {
                               showDialog(
                                 context: context,
@@ -148,31 +156,34 @@ class _SignUpPageState extends State<SignUpPage> {
                             }
                           }
                         },
-                        child: PhysicalModel(
-                          color: Colors.transparent,
-                          shadowColor: Colors.purple.shade200,
-                          elevation: 30,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                              25.0,
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              width: double.infinity,
-                              color: Colors.purple,
-                              child: Text(
-                                'SignUp',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: GoogleFonts.roboto().fontFamily,
-                                  fontSize: 20,
+                        child: _isloading
+                            ? Loading1(color: Colors.purpleAccent)
+                            : PhysicalModel(
+                                color: Colors.transparent,
+                                shadowColor: Colors.purple.shade200,
+                                elevation: 30,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(
+                                    25.0,
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 50,
+                                    width: double.infinity,
+                                    color: Colors.purple,
+                                    child: Text(
+                                      'SignUp',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily:
+                                            GoogleFonts.roboto().fontFamily,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
                       ),
                     )
                   ],
