@@ -97,49 +97,55 @@ class _SignUpPageState extends State<SignUpPage> {
                           print('name = ${_namecontroller.text}');
                           print('text = ${_emailcontroller.text}');
                           print('pass = ${_passwordcontroller.text}');
-                          bool f = await AuthMethods().signUp(
-                            _emailcontroller.text,
-                            _passwordcontroller.text,
-                            _namecontroller.text,
-                          );
-                          if (f) {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext buildcontext) {
-                                _timer = Timer(const Duration(seconds: 5), () {
-                                  Navigator.of(context).pop();
-                                });
-                                return ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: AlertDialog(
-                                    backgroundColor: Colors.grey,
-                                    title: Text(
-                                      'Your Account was successfully created',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily:
-                                            GoogleFonts.lobster().fontFamily,
-                                      ),
-                                    ),
-                                    content: Text(
-                                      'Preparing your Dashboard\n\nPlease Wait',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily:
-                                            GoogleFonts.lobster().fontFamily,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ).then((value) => print('ho gya bhai!!'));
-                          } else {
-                            const AlertDialog(
-                              title: Text('Failed'),
-                              content:
-                                  Text('Some Error Occured. Try Again Later.'),
+                          if (formKey.currentState!.validate()) {
+                            bool f = await AuthMethods().signUp(
+                              _emailcontroller.text,
+                              _passwordcontroller.text,
+                              _namecontroller.text,
                             );
+                            print("hello");
+                            print(f);
+                            if (f) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext buildcontext) {
+                                  _timer =
+                                      Timer(const Duration(seconds: 5), () {
+                                    Navigator.of(context).pop();
+                                  });
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(50),
+                                    child: AlertDialog(
+                                      backgroundColor: Colors.grey,
+                                      elevation: 5,
+                                      title: Text(
+                                        'Your Account was successfully created',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily:
+                                              GoogleFonts.lobster().fontFamily,
+                                        ),
+                                      ),
+                                      content: Text(
+                                        'Preparing your Dashboard\n\nPlease Wait',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily:
+                                              GoogleFonts.lobster().fontFamily,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => print('ho gya bhai!!'));
+                            } else {
+                              const AlertDialog(
+                                title: Text('Failed'),
+                                content: Text(
+                                    'Some Error Occured. Try Again Later.'),
+                              );
+                            }
                           }
                         },
                         child: PhysicalModel(
@@ -156,7 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               width: double.infinity,
                               color: Colors.purple,
                               child: Text(
-                                'SigUp',
+                                'SignUp',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
