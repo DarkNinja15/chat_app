@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               _isLoading = true;
                             });
-                            bool f = await AuthMethods().login(
+                            String? f = await AuthMethods().login(
                               _emailcontroller.text,
                               _passwordcontroller.text,
                             );
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                             setState(() {
                               _isLoading = false;
                             });
-                            if (f) {
+                            if (f == 'Success') {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext buildcontext) {
@@ -130,11 +130,20 @@ class _LoginPageState extends State<LoginPage> {
                                 },
                               ).then((value) => print('ho gya bhai!!'));
                             } else {
-                              const AlertDialog(
-                                title: Text('Failed'),
+                              await Future.delayed(const Duration(seconds: 1));
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
                                 content: Text(
-                                    'Some Error Occured. Try Again Later.'),
-                              );
+                                  f,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: GoogleFonts.lato().fontFamily,
+                                  ),
+                                ),
+                                backgroundColor: Colors.red,
+                              ));
                             }
                           }
                         },

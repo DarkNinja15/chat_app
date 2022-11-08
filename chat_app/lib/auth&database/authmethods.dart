@@ -45,7 +45,7 @@ class AuthMethods {
   }
 
   // log in user
-  Future<bool> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     try {
       final UserCredential userCredential =
           await auth.signInWithEmailAndPassword(
@@ -53,12 +53,24 @@ class AuthMethods {
         password: password,
       );
       if (userCredential != null) {
-        return true;
+        return 'Success';
       }
-      return false;
+      return 'Failed';
+    } on FirebaseAuthException catch (error) {
+      print('error = ${error.code}');
+      if (error.code == 'wrong-password') {
+        return 'Incorrect Password';
+      } else if (error.code == 'invalid-email') {
+        return 'Invalid Email';
+      } else if (error.code == 'user-disabled') {
+        return 'User is disabled';
+      } else if (error.code == 'user-not-found') {
+        return 'User not found. Try creating an account';
+      }
+      return 'Failed';
     } catch (e) {
       print(e.toString());
-      return false;
+      return 'Failed';
     }
   }
 }
