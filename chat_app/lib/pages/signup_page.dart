@@ -164,6 +164,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               ));
                             }
                           }
+                          _emailcontroller.text = "";
+                          _passwordcontroller.text = "";
+                          _namecontroller.text = "";
                         },
                         child: _isloading
                             ? Loading1(color: Colors.purpleAccent)

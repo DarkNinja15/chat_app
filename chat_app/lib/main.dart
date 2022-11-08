@@ -24,25 +24,27 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch().copyWith(
             secondary: Colors.pink,
           )),
-      home: const SignUpPage(),
-      // home: StreamBuilder(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: ((context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.active) {
-      //       if (snapshot.hasData) {
-      //         return const HomePage();
-      //       } else if (snapshot.hasError) {
-      //         return const Center(
-      //           child: Text('Some Error Occured!!'),
-      //         );
-      //       }
-      //     }
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return const Loading();
-      //     }
-      //     return LoginPage();
-      //   }),
-      // ),
+      // home: const SignUpPage(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: ((context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData) {
+              return const HomePage();
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text('Some Error Occured!!'),
+              );
+            }
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Loading1(
+              color: Colors.purpleAccent,
+            );
+          }
+          return const LoginPage();
+        }),
+      ),
     );
   }
 }

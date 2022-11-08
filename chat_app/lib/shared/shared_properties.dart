@@ -7,6 +7,7 @@ class TextForm extends StatelessWidget {
   final bool obscure;
   final Icon icon;
   final TextEditingController textEditingController;
+  final bool isLogin;
   const TextForm({
     Key? key,
     required this.textInputType,
@@ -15,6 +16,7 @@ class TextForm extends StatelessWidget {
     required this.icon,
     required this.textEditingController,
     this.obscure = false,
+    this.isLogin = false,
   }) : super(key: key);
 
   @override
@@ -68,7 +70,9 @@ class TextForm extends StatelessWidget {
             if (!value.endsWith('.com')) {
               return 'Invalid email';
             }
-          } else if (textInputType == TextInputType.text && obscure) {
+          } else if (textInputType == TextInputType.text &&
+              obscure &&
+              isLogin) {
             if (value!.isEmpty) {
               return 'Enter password';
             }

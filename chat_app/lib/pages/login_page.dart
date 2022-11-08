@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chat_app/pages/home_page.dart';
 import 'package:chat_app/pages/signup_page.dart';
 import 'package:chat_app/shared/loading1.dart';
 import 'package:chat_app/shared/loading2.dart';
@@ -17,8 +18,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _passwordcontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _passwordcontroller = TextEditingController();
   Timer? _timer;
   bool _isLoading = false;
 
@@ -73,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Password',
                         textInputType: TextInputType.text,
                         obscure: true,
+                        isLogin: true,
                         icon: const Icon(
                           Icons.lock,
                           color: Colors.purple,
@@ -129,6 +131,11 @@ class _LoginPageState extends State<LoginPage> {
                                   );
                                 },
                               ).then((value) => print('ho gya bhai!!'));
+                              await Future.delayed(const Duration(seconds: 1));
+                              if (!mounted) return;
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) => const HomePage()));
                             } else {
                               await Future.delayed(const Duration(seconds: 1));
                               if (!mounted) return;
@@ -146,6 +153,8 @@ class _LoginPageState extends State<LoginPage> {
                               ));
                             }
                           }
+                          _emailcontroller.text = "";
+                          _passwordcontroller.text = "";
                         },
                         child: _isLoading
                             ? Loading1(
