@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -5,7 +7,7 @@ class AuthMethods {
   final auth = FirebaseAuth.instance;
 
   // sign up user
-  Future<bool> signUp(String email, String password, String name) async {
+  Future<String?> signUp(String email, String password, String name) async {
     try {
       final UserCredential credential =
           await auth.createUserWithEmailAndPassword(
@@ -24,10 +26,21 @@ class AuthMethods {
         'groups': [],
         'profilePic': '',
       });
-      return true;
+      return "Success";
+    } on FirebaseAuthException catch (error) {
+      print('error = ${error.code}');
+      if (error.code == 'email-already-in-use') {
+        return "Email already in use. Try using a diffrent email";
+      } else if (error.code == 'invalid-email') {
+        return "Invalid email";
+      } else if (error.code == 'operation-not-allowed') {
+        return "Operation not allowed";
+      } else if (error.code == 'weak-password') {
+        return "Password is too weak";
+      }
     } catch (e) {
       print(e.toString());
-      return false;
+      return "Failed";
     }
   }
 
