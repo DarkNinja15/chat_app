@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^3.0.1
   shared_preferences: ^2.0.15
   simple_animations: ^5.0.0+2
+  fancy_drawer: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
