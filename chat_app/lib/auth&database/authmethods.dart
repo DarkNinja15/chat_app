@@ -1,10 +1,20 @@
 import 'dart:async';
 
+import 'package:chat_app/models/usermodels.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthMethods {
   final auth = FirebaseAuth.instance;
+
+  Future<UserModel> getUserDetails() async {
+    User currentUser = auth.currentUser!;
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+    return UserModel.fromSnap(snap);
+  }
 
   // sign up user
   Future<String?> signUp(String email, String password, String name) async {
