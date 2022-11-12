@@ -56,22 +56,81 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return _isloading
-        ? Loading1(color: Colors.purpleAccent)
+        ? Scaffold(
+            body: Center(
+              child: Loading1(
+                color: Colors.purpleAccent,
+              ),
+            ),
+          )
         : FancyDrawerWrapper(
+            drawerPadding: const EdgeInsets.only(
+              right: 40,
+            ),
+            hideOnContentTap: true,
+            itemGap: 1,
             backgroundColor: Colors.white,
             controller: _controller,
             drawerItems: [
-              const Center(
-                child: CircleAvatar(
-                  backgroundColor: Colors.purple,
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Center(
+                  child: CircleAvatar(
+                    radius: 64,
+                    backgroundColor: Colors.purple,
+                  ),
                 ),
               ),
               Text(
                 userdata['name'],
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.purple.shade700,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+              const Divider(color: Colors.grey),
+              TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.people,
+                  color: Colors.purpleAccent,
+                ),
+                label: const Text(
+                  'Groups',
+                  style: TextStyle(
+                    color: Colors.purpleAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.account_circle,
+                  color: Colors.purpleAccent,
+                ),
+                label: const Text(
+                  'Profile',
+                  style: TextStyle(
+                    color: Colors.purpleAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.exit_to_app,
+                  color: Colors.purpleAccent,
+                ),
+                label: const Text(
+                  'LogOut',
+                  style: TextStyle(
+                    color: Colors.purpleAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
