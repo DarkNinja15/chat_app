@@ -1,3 +1,5 @@
+import 'package:chat_app/auth&database/authmethods.dart';
+import 'package:chat_app/pages/login_page.dart';
 import 'package:chat_app/pages/search_page.dart';
 import 'package:chat_app/shared/loading1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,6 +19,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late FancyDrawerController _controller;
   var userdata = {};
   bool _isloading = false;
+  String profileImageUrl = '';
 
   @override
   void initState() {
@@ -39,6 +42,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
       userdata = usersnap.data()!;
       print(userdata['name']);
+      if (userdata['profilePic'] != null) {
+        profileImageUrl = userdata['profilePic'];
+      }
     } catch (e) {
       print(e.toString());
     }
@@ -72,14 +78,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             backgroundColor: Colors.white,
             controller: _controller,
             drawerItems: [
-              const Padding(
-                padding: EdgeInsets.only(left: 8.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Center(
-                  child: CircleAvatar(
-                    radius: 64,
-                    backgroundColor: Colors.purple,
-                  ),
-                ),
+                    child: profileImageUrl == ''
+                        ? const Icon(
+                            Icons.account_circle,
+                            size: 150,
+                          )
+                        : CircleAvatar(
+                            radius: 64,
+                            backgroundImage: NetworkImage(profileImageUrl),
+                          )),
               ),
               Text(
                 userdata['name'],
@@ -120,7 +130,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: () async {
+                  await AuthMethods().signmeout();
+                  await Future.delayed(const Duration(seconds: 1));
+                  if (!mounted) return;
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
+                },
                 icon: const Icon(
                   Icons.exit_to_app,
                   color: Colors.purpleAccent,

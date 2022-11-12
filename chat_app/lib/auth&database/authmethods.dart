@@ -83,4 +83,9 @@ class AuthMethods {
       return 'Failed';
     }
   }
+
+  // sign out user
+  Future<void> signmeout() async {
+    await auth.signOut();
+  }
 }
