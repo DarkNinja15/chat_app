@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                                 context: context,
                                 builder: (BuildContext buildcontext) {
                                   _timer =
-                                      Timer(const Duration(seconds: 5), () {
+                                      Timer(const Duration(seconds: 1), () {
                                     Navigator.of(context).pop();
                                   });
                                   return ClipRRect(
@@ -130,9 +130,13 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   );
                                 },
-                              ).then((value) => print('ho gya bhai!!'));
+                              ).then((value) {
+                                Navigator.of(context).pop();
+                                print('ho gya bhai!!');
+                              });
                               await Future.delayed(const Duration(seconds: 1));
                               if (!mounted) return;
+
                               Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
                                       builder: (context) => const HomePage()));

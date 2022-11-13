@@ -131,14 +131,56 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ),
               TextButton.icon(
                 onPressed: () async {
-                  await AuthMethods().signmeout();
-                  await Future.delayed(const Duration(seconds: 1));
-                  if (!mounted) return;
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                  );
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text(
+                            'LogOut',
+                            style: TextStyle(
+                              color: Colors.purpleAccent,
+                            ),
+                          ),
+                          content: const Text(
+                            'Are You sure you want to logout?',
+                            style: TextStyle(
+                              color: Colors.purpleAccent,
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  await AuthMethods().signmeout();
+                                  await Future.delayed(
+                                      const Duration(seconds: 1));
+                                  if (!mounted) return;
+
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginPage(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  'Ok',
+                                  style: TextStyle(
+                                    color: Colors.purpleAccent,
+                                  ),
+                                )),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text(
+                                  'Cancel',
+                                  style: TextStyle(
+                                    color: Colors.purpleAccent,
+                                  ),
+                                )),
+                          ],
+                        );
+                      });
                 },
                 icon: const Icon(
                   Icons.exit_to_app,
