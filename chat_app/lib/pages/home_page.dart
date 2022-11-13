@@ -1,5 +1,6 @@
 import 'package:chat_app/auth&database/authmethods.dart';
 import 'package:chat_app/pages/login_page.dart';
+import 'package:chat_app/pages/profile_page.dart';
 import 'package:chat_app/pages/search_page.dart';
 import 'package:chat_app/shared/loading1.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -116,7 +117,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
               TextButton.icon(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProfilePage(),
+                    ),
+                  );
+                },
                 icon: const Icon(
                   Icons.account_circle,
                   color: Colors.purpleAccent,

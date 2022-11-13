@@ -103,9 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                                 context: context,
                                 builder: (BuildContext buildcontext) {
                                   _timer =
-                                      Timer(const Duration(seconds: 1), () {
-                                    Navigator.of(context).pop();
-                                  });
+                                      Timer(const Duration(seconds: 5), () {});
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
                                     child: AlertDialog(
